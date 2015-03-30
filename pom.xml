@@ -43,6 +43,17 @@
           <artifactId>spring-web</artifactId>
           <version>${org.springframework-version}</version>
       </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-mongodb</artifactId>
+          <version>1.6.2.RELEASE</version>
+      </dependency>
       <!--Hiernate-->
       <dependency>
           <groupId>org.hibernate</groupId>
