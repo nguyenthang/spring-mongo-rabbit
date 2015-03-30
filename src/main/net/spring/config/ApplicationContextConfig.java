@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
@@ -22,14 +24,14 @@ import java.util.Properties;
  * Created by thangnguyen on 3/29/15.
  */
 @Configuration
-@ComponentScan("net.spring")
+@ComponentScan("main.net.spring")
 @EnableTransactionManagement
 public class ApplicationContextConfig {
 
     @Bean(name = "viewResolver")
     public InternalResourceViewResolver getViewResolver(){
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views");
+        viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
@@ -41,7 +43,7 @@ public class ApplicationContextConfig {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/userdb");
         dataSource.setUsername("root");
-        dataSource.setPassword("Thang");
+        dataSource.setPassword("");
 
         return dataSource;
     }
@@ -67,6 +69,14 @@ public class ApplicationContextConfig {
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory){
         HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager(sessionFactory);
         return hibernateTransactionManager;
+    }
+
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource getMessageSource() {
+        ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
+        resource.setBasename("classpath:messages");
+        resource.setDefaultEncoding("UTF-8");
+        return resource;
     }
 
     @Autowired
