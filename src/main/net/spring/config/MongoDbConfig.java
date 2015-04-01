@@ -21,7 +21,6 @@ import java.util.ArrayList;
  */
 @Configuration
 @EnableMongoRepositories
-//@ComponentScan(basePackages = {MongoDBApp.class})
 @PropertySource("classpath:application.properties")
 public class MongoDbConfig extends AbstractMongoConfiguration {
 
@@ -32,7 +31,7 @@ public class MongoDbConfig extends AbstractMongoConfiguration {
 
     @Override
     public Mongo mongo() throws Exception {
-        return new Mongo(new ArrayList<ServerAddress>() {{ add(new ServerAddress("127.0.0.1", 27017)); add(new ServerAddress("127.0.0.1", 27027)); add(new ServerAddress("127.0.0.1", 27037)); }});
+        return new MongoClient();
     }
 
     @Override
